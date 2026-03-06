@@ -1,0 +1,14 @@
+.divider {
+  width: 115%;
+  height: 1px;
+  background-color: #b4b4b4b9;
+margin-left: -16px;
+margin-right: 8px;
+}
+
+.div{
+    width: 100%;
+  height: 2px;
+  background-color: #383838b9;
+
+}
