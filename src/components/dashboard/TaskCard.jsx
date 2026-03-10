@@ -54,51 +54,51 @@ export default function TaskCard({ task, onEdit }) {
   return (
     <div className="bg-white p-4 rounded-xl shadow-md  ">
       {!isEditing ? (
-        <>
-          {/* Title */}
-          <h3 className="font-semibold " style={{fontSize: "14px"}}>{task.title}</h3>
-<div style={{display: "flex", gap: "5px" }}>
-          <p className=" text-gray-500 mt-2 flex items-center gap-2" style={{fontSize: "12px"}}>
-            <FontAwesomeIcon icon={faUser} className="text-gray-400" />
-            {task.assignee}
-          </p>
+                <>
+                  {/* Title */}
+                  <h3 className="font-semibold " style={{fontSize: "14px"}}>{task.title}</h3>
+        <div style={{display: "flex", gap: "5px" }}>
+                  <p className=" text-gray-500 mt-2 flex items-center gap-2" style={{fontSize: "12px"}}>
+                    <FontAwesomeIcon icon={faUser} className="text-gray-400" />
+                    {task.assignee}
+                  </p>
 
-          {/* Work Type */}
-          <p className="text-sm text-gray-500 flex items-center gap-2 mt-1" style={{fontSize: "12px"}}>
-            <FontAwesomeIcon
-              icon={workTypeIcons[task.workItemType] || faTag}
-              className="text-blue-500"
-            />
-            {task.workItemType}
-          </p>
+                  {/* Work Type */}
+                  <p className="text-sm text-gray-500 flex items-center gap-2 mt-1" style={{fontSize: "12px"}}>
+                    <FontAwesomeIcon
+                      icon={workTypeIcons[task.workItemType] || faTag}
+                      className="text-blue-500"
+                    />
+                    {task.workItemType}
+                  </p>
 
-          {/* Sprint */}
-          <p className="text-sm text-gray-500 flex items-center gap-2 mt-1" style={{fontSize: "12px"}}>
-            <FontAwesomeIcon icon={faRocket} className="text-purple-500" />
-            {task.sprint}
-          </p>
-          </div>
+                  {/* Sprint */}
+                  <p className="text-sm text-gray-500 flex items-center gap-2 mt-1" style={{fontSize: "12px"}}>
+                    <FontAwesomeIcon icon={faRocket} className="text-purple-500" />
+                    {task.sprint}
+                  </p>
+                  </div>
 
-          {/* Status + Edit */}
-          <div className="flex justify-between items-center mt-4" >
-            <span className="text-xs font-medium bg-gray-200 px-2 py-1 rounded flex items-center gap-1" style={{fontSize: "10px"}}>
-              <FontAwesomeIcon
-                icon={statusIcons[task.status] || faCircle}
-                className="text-gray-500"
-              />
-              {task.status}
-            </span>
+                  {/* Status + Edit */}
+                  <div className="flex justify-between items-center mt-4" >
+                    <span className="text-xs font-medium bg-gray-200 px-2 py-1 rounded flex items-center gap-1" style={{fontSize: "10px"}}>
+                      <FontAwesomeIcon
+                        icon={statusIcons[task.status] || faCircle}
+                        className="text-gray-500"
+                      />
+                      {task.status}
+                    </span>
 
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setIsEditing(true)}
-              style={{fontSize: "10px"}}
-            >
-              Edit
-            </Button>
-          </div>
-        </>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setIsEditing(true)}
+                      style={{fontSize: "10px"}}
+                    >
+                      Edit
+                    </Button>
+                  </div>
+                </>
       ) : (
         <div className="space-y-3">
           <Input
