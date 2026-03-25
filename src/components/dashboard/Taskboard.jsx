@@ -60,16 +60,16 @@ const Taskboard = () => {
   const name = userData ? userData.username : "User";
   return (
     <div style={{paddingLeft: "240px", marginTop: "65px"}}>
-      <h1 style={{marginTop:"15px", fontSize: "18px"}}>Welcome, <span style={{fontWeight: "bold"}}>{name}!</span></h1>
+      <h1 style={{marginTop:"15px", fontSize: "18px"}}>Welcome, <span style={{fontWeight: "bold"}}>{userData.username}!</span></h1>
       <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
       <div>
         <Card className='p-4' style={{marginTop: "20px", width: "400px", height: "200px", display: "flex", flexDirection: "column",}} >
           <div style={{display: "flex", alignItems: "center", gap: "20px", paddingTop: "10px"}} >
             <span style={{ backgroundColor: "#f0f0f0", width: "50px", height: "50px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "20px", fontWeight: "bold"}}>{name.charAt(0)}</span>
           <div  >
-            <h2 style={{fontSize: "18px", fontWeight: "bold"}} >{name}</h2>
+            <h2 style={{fontSize: "18px", fontWeight: "bold"}} >{userData.username}</h2>
           <p style={{fontSize: "14px", color: "#555", fontWeight: "500"}} >{userData ? userData.role[0].toUpperCase() + userData.role.slice(1) : "Employee"}</p>
-          <p style={{fontSize: "14px", color: "#555",}}> IT Developer, Junior Web Developer </p>
+          <span style={{fontSize: "14px", color: "#555", display: "flex", gap: "5px"}}> <p>{userData.department?.toUpperCase()},</p>  <p>{userData.designation}</p></span>
           </div>
             </div>
           <div className="divider" style={{height: "1px", width: "109%", backgroundColor: "#e0e0e0", marginTop: "10px"}}></div>

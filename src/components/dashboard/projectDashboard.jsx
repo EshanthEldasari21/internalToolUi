@@ -1,24 +1,34 @@
+
+
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const ProjectDashboard = () => {
-
   const [projectName, setProjectName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [projectData, setProjectData] = React.useState(
     JSON.parse(localStorage.getItem("projectData")) || []
   );
 
-  const organisationData = JSON.parse(localStorage.getItem("organisationData")) || [];
-  const currentOrg = organisationData.length > 0 ? organisationData[0] : null;
+  // ✅ Get current selected organisation
+  const currentOrg =
+    JSON.parse(localStorage.getItem("currentOrganisation")) ||
+    (JSON.parse(localStorage.getItem("organisationData")) || [])[0];
 
+  // ✅ Filter projects based on organisation
+  const filteredProjects = projectData.filter(
+    (proj) =>
+      proj.organisationId ===
+      (currentOrg?.id || currentOrg?.organisationName)
+  );
+
+  // ✅ Create Project
   const handleCreate = () => {
-
     if (!projectName.trim()) {
       alert("Project name is required");
       return;
@@ -27,13 +37,13 @@ const ProjectDashboard = () => {
     const newProject = {
       id: Date.now(),
       projectName,
-      description
+      description,
+      organisationId: currentOrg?.id || currentOrg?.organisationName, // 🔥 important
     };
 
     const updatedProjects = [...projectData, newProject];
 
     localStorage.setItem("projectData", JSON.stringify(updatedProjects));
-
     setProjectData(updatedProjects);
 
     setProjectName("");
@@ -48,7 +58,6 @@ const ProjectDashboard = () => {
       {/* Create Project Modal */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-lg">
-
           <h1 style={{ fontSize: "18px", fontWeight: "bold" }}>
             Create New Project
           </h1>
@@ -91,17 +100,19 @@ const ProjectDashboard = () => {
               Create
             </button>
           </div>
-
         </DialogContent>
       </Dialog>
 
+      {/* Main Content */}
       <div
         className="p-4"
         style={{ marginTop: "55px", marginLeft: "240px" }}
       >
-
+        {/* Organisation Name */}
         <h1 style={{ fontSize: "21px", fontWeight: "bold" }}>
-         {currentOrg ? currentOrg.organisationName : "Organisation Name"}
+          {currentOrg
+            ? currentOrg.organisationName
+            : "Organisation Name"}
         </h1>
 
         {/* Add Project Button */}
@@ -130,9 +141,8 @@ const ProjectDashboard = () => {
 
           {/* Projects Tab */}
           <TabsContent value="projects">
-
-            {projectData.length > 0 ? (
-              projectData.map((proj) => (
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((proj) => (
                 <div
                   key={proj.id}
                   style={{
@@ -143,17 +153,19 @@ const ProjectDashboard = () => {
                     marginTop: "12px",
                     backgroundColor: "white",
                     boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                    cursor: "pointer"
-                   
+                    cursor: "pointer",
                   }}
-onClick={() =>
-  navigate(`/dashboard/organisationDashboard/${proj.projectName}`)
-}                >
+                  onClick={() =>
+                    navigate(
+                      `/dashboard/organisationDashboard/${proj.projectName}`
+                    )
+                  }
+                >
                   <h2
                     style={{
                       fontSize: "18px",
                       fontWeight: "bold",
-                      marginBottom: "8px"
+                      marginBottom: "8px",
                     }}
                   >
                     {proj.projectName}
@@ -162,7 +174,6 @@ onClick={() =>
                   <p style={{ fontSize: "14px", color: "#555" }}>
                     {proj.description}
                   </p>
-
                 </div>
               ))
             ) : (
@@ -170,19 +181,24 @@ onClick={() =>
                 No projects yet.
               </p>
             )}
-
           </TabsContent>
 
           {/* Work Items Tab */}
           <TabsContent value="workitems">
-            <p style={{ marginTop: "10px" }}>
-              No work items yet.
-            </p>
+            {filteredProjects.length === 0 ? (
+              <p style={{ marginTop: "10px" }}>
+                No work items yet.
+              </p>
+            ) : (
+              <p style={{ marginTop: "10px" }}>
+                Work items will be shown here.
+              </p>
+            )}
           </TabsContent>
-
         </Tabs>
       </div>
-<Outlet />
+
+      <Outlet />
     </>
   );
 };
