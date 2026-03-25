@@ -18,6 +18,8 @@ export default function DashboardLayout() {
 
 console.log(projectName);
 
+const currentOrganisation = JSON.parse(localStorage.getItem("currentOrganisation"));
+
   const isDashboardHome = location.pathname === "/dashboard" || location.pathname === "/dashboard/profile" || location.pathname === "/dashboard/timeSheet";
 
 
@@ -89,12 +91,17 @@ console.log(projectName);
         {isOrganisationDashboard && (
           <>
             {organisations.map((org, index) => (
-              <Card className="p-2" key={index}>
+              <Card className={`p-2 ${
+  currentOrganisation?.id === org.id
+    ? "bg-black text-white"
+    : "bg-white text-black"
+}`} key={index}>
                 <Button
                   variant="ghost"
-                  className="w-full text-left"
+  className= "w-full text-left" 
+
                 onClick={() => {
-  localStorage.setItem("currentOrganisation", JSON.stringify(org));
+  localStorage.setItem("currentOrganisation", JSON.stringify(org)); 
   navigate("/dashboard/organisationDashboard");
 }}
                 >
