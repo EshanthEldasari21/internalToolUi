@@ -190,6 +190,7 @@ export default function TimeSheetTable() {
             type="number"
             value={year}
             onChange={(e) => setYear(e.target.value)}
+            placeholder="Enter the year"
             min="1900"
             max="2100"
             style={{

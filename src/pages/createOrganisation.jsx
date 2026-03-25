@@ -32,7 +32,7 @@ const handleCreate = () => {
   existingOrgs.push(newOrganisation);
 
   localStorage.setItem("organisationData", JSON.stringify(existingOrgs));
-  navigate("/dashboard/projectDashboard");
+ 
   alert("Organisation created successfully!");
 
   setOrganisationName("");
